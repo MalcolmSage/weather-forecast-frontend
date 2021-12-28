@@ -1,20 +1,19 @@
 import React, { Component } from "react";
 
+import { Grid } from "@material-ui/core";
+
 
 class Card extends Component {
 
 
   render() {
-    const {weather, isWeather, onSubmit, value, onChange} = this.props
+    const {item} = this.props
     return (
-      <div>
-        <form onSubmit={onSubmit}>
-          <input onChange={onChange} value={value} />
-        </form>
-        <h1>{isWeather ? weather.location : ""}</h1>
-        <h1>{isWeather ? weather.clouds : ""}</h1>
-        <h1>{isWeather ? weather.temperature : ""}</h1>
-      </div>
+      <Grid container>
+        <Grid item>{item.location}</Grid>
+        <Grid item>{item.clouds}</Grid>
+        <Grid item>{item.temperature}</Grid>
+      </Grid>
     )
   }
 
