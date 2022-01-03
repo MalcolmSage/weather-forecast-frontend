@@ -1,16 +1,21 @@
 import React, { Component } from "react";
 import "./styles/App.css"
 
-import { makeStyles, ThemeProvider, createTheme } from '@material-ui/core/styles';
+import {
+  makeStyles,
+  createTheme,
+  ThemeProvider
+} from "@material-ui/core/styles";
 
-import CityTabs from './components/cityTabs'
-import Card from './components/card'
+import LocationCard from './components/card'
 import SearchAppBar from './components/lookup'
+import Footer from "./components/bottomCycle";
+
+import { Typography, Box, Grid } from "@mui/material";
+
+
 
 import PropTypes from 'prop-types';
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
-import { Grid } from "@material-ui/core";
 
 const theme = createTheme({
   palette: {
@@ -24,7 +29,12 @@ const theme = createTheme({
 })
 
 const useStyles = makeStyles({
-
+  primaryBG: {
+    backgroundColor: "#282c34",
+  },
+  secondaryText: {
+    color: "white"
+  }
 })
 
 class App extends Component {
@@ -48,35 +58,34 @@ class App extends Component {
     fetch(url)
       .then(response => response.json())
       .then(data => {
-        let currentWeatherPrediction = {
-          location: data.name,
-          clouds: data.weather[0].description,
-          temperature: data.main.temp,
-          index: this.state.arrayOfWeather.length,
-          value: value,
+        if(data.cod !== 200){
+          console.log(data.message)
+          this.setState({
+            value: "",
+          })
+        } else {
+          let currentWeatherPrediction = {
+            location: data.name,
+            clouds: data.weather[0].description,
+            temperature: data.main.temp,
+            index: this.state.arrayOfWeather.length,
+            value: value,
+          }
+          let newArray = this.state.arrayOfWeather
+          newArray.push(currentWeatherPrediction)
+          this.setState({
+            value: "",
+            arrayOfWeather: newArray,
+            tabValue: currentWeatherPrediction.index,
+          })
         }
-        let newArray = this.state.arrayOfWeather
-        newArray.push(currentWeatherPrediction)
-        this.setState({
-          value: "",
-          arrayOfWeather: newArray,
-          tabValue: currentWeatherPrediction.index,
-        })
       })
 
   }
 
   render() {
     const { value, arrayOfWeather } = this.state;
-    const weather = arrayOfWeather.length !== 0 ? arrayOfWeather[0] : ""
-    function isWeather() {
-      if (arrayOfWeather.length !== 0) {
-        return true
-      }
-      return false
-    }
-
-    // TESTING
+    // TAB FUNCTION
     function TabPanel(props) {
       const { children, value, index, ...other } = props;
 
@@ -90,7 +99,7 @@ class App extends Component {
         >
           {value === index && (
             <Box sx={{ p: 3 }}>
-              <Typography>{children}</Typography>
+              <Typography component={'span'}>{children}</Typography>
             </Box>
           )}
         </div>
@@ -110,40 +119,40 @@ class App extends Component {
       };
     }
 
+    // TAB FUNCTION END
     const handleChange = (event, newValue) => {
       this.setState({ tabValue: newValue });
     };
-    // const [tabValue, setTabValue] = React.useState(0);
 
-
+    const nextTab = () => {
+      if (this.state.tabValue !== (this.state.arrayOfWeather.length - 1)) {
+        this.setState({ tabValue: (this.state.tabValue + 1) });
+      }
+    }
+    const backTab = () => {
+      if (this.state.tabValue !== 0) {
+        console.log(this.state.tabValue, this.state.arrayOfWeather.length)
+        this.setState({ tabValue: (this.state.tabValue - 1) });
+      }
+    }
 
     return (
       <ThemeProvider theme={theme} >
         <Box className="App">
-          <SearchAppBar onSubmit={this.onSubmit} onChange={this.onChange} value={value} a11yProps={a11yProps} tabValue={this.state.tabValue} handleChange={handleChange} arrayOfWeather={this.state.arrayOfWeather}/>
-          {/* <CityTabs a11yProps={a11yProps} tabValue={this.state.tabValue} handleChange={handleChange} arrayOfWeather={this.state.arrayOfWeather} /> */}
-          {arrayOfWeather.map((item) => (
-            <TabPanel value={this.state.tabValue} index={item.index} key={item.index}>
-              <Card item={item} />
-            </TabPanel>
-          ))}
-          {/* </div> */}
+          <SearchAppBar onChange={this.onChange} style={useStyles} onSubmit={this.onSubmit} value={value} a11yProps={a11yProps} tabValue={this.state.tabValue} handleChange={handleChange} arrayOfWeather={this.state.arrayOfWeather} />
+          <Grid container justifyContent="center" alignItems="center">
+            <Grid item>
+              {arrayOfWeather.map((item) => (
+                <TabPanel value={this.state.tabValue} index={item.index} key={item.index}>
+                  <LocationCard item={item} />
+                </TabPanel>
+              ))}
+            </Grid>
+          </Grid>
+          <Footer style={useStyles} nextTab={nextTab} backTab={backTab} arrayOfWeather={this.state.arrayOfWeather}/>
         </Box>
       </ThemeProvider>
     );
-    // TESTING
-
-
-
-    // return (
-    <ThemeProvider theme={theme} >
-      <Grid container className="App">
-        <Grid item>
-          <Card weather={weather} isWeather={isWeather} onSubmit={this.onSubmit} setState={this.setState} onChange={this.onChange} value={value} />
-        </Grid>
-      </Grid>
-    </ThemeProvider>
-    // );
   }
 }
 

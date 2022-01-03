@@ -1,15 +1,15 @@
 import * as React from 'react';
+import "../styles/App.css"
+
 import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
-import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 
 import CityTabs from './cityTabs'
+
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -56,44 +56,33 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export default function SearchAppBar(props) {
     const { a11yProps, tabValue, handleChange, arrayOfWeather } = props
+    const classes = props.style()
 
     return (
-        <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="static">
-                <Toolbar>
-                    <IconButton
-                        size="large"
-                        edge="start"
-                        color="inherit"
-                        aria-label="open drawer"
-                        sx={{ mr: 2 }}
-                    >
-                        <MenuIcon />
-                    </IconButton>
-                    <Search>
-                        <SearchIconWrapper>
-                            <SearchIcon />
-                        </SearchIconWrapper>
-                        <form onSubmit={props.onSubmit}>
-                            <StyledInputBase
-                                placeholder="Search…"
-                                inputProps={{ 'aria-label': 'search' }}
-                                onChange={props.onChange}
-                                value={props.value}
-                            />
-                        </form>
-                    </Search>
-                    <Typography
-                        variant="h6"
-                        noWrap
-                        component="div"
-                        sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
-                    >
+        <AppBar position="static" className={classes.primaryBG}>
+            <Toolbar>
+                <Search>
+                    <SearchIconWrapper>
+                        <SearchIcon />
+                    </SearchIconWrapper>
+                    <form onSubmit={props.onSubmit}>
+                        <StyledInputBase
+                            placeholder="Search…"
+                            inputProps={{ 'aria-label': 'search' }}
+                            onChange={props.onChange}
+                            value={props.value}
+                        />
+                    </form>
+                </Search>
+                <Typography
+                    variant="h6"
+                    noWrap
+                    component="div"
+                    sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
+                >
                     <CityTabs a11yProps={a11yProps} tabValue={tabValue} handleChange={handleChange} arrayOfWeather={arrayOfWeather} />
-
-                    </Typography>
-                </Toolbar>
-            </AppBar>
-        </Box >
+                </Typography>
+            </Toolbar>
+        </AppBar>
     );
 }

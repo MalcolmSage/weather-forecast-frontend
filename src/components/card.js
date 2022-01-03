@@ -1,80 +1,38 @@
 import React, { Component } from "react";
 
-import { Grid } from "@material-ui/core";
+import { Grid, Typography } from "@material-ui/core";
 
-
-class Card extends Component {
+class LocationCard extends Component {
 
 
   render() {
-    const {item} = this.props
+    const { item } = this.props
     return (
-      <Grid container>
-        <Grid item>{item.location}</Grid>
-        <Grid item>{item.clouds}</Grid>
-        <Grid item>{item.temperature}</Grid>
+      <Grid
+        container
+        direction="column"
+        justifyContent="center"
+        alignItems="center"
+        spacing={5}
+      >
+        <Grid item >
+          <Typography variant="h3" component="div" >
+            {item.location}
+          </Typography>
+        </Grid>
+        <Grid item>
+          <Typography variant="h3" component="div">
+            {item.clouds}
+          </Typography>
+        </Grid>
+        <Grid item>
+          <Typography variant="h3" component="div">
+            {Math.floor(item.temperature)}c
+          </Typography>
+        </Grid>
       </Grid>
     )
   }
-
-  // constructor() {
-  //   super()
-  //   this.state = {
-  //     value: "",
-  //     arrayOfWeather: [],
-  //   }
-  // }
-
-
-
-  // onChange = event => {
-  //   this.setState({ value: event.target.value });
-  // }
-  // onSubmit = event => {
-  //   event.preventDefault();
-  //   const { value } = this.state;
-  //   const url = `https://api.openweathermap.org/data/2.5/weather?q=${value}&units=metric&appid=${process.env.REACT_APP_WEATHER_KEY}`
-  //   fetch(url)
-  //     .then(response => response.json())
-  //     .then(data => {
-  //       let currentWeatherPrediction = {
-  //         location: data.name,
-  //         clouds: data.weather[0].description,
-  //         temperature: data.main.temp,
-  //         value: value,
-  //       }
-  //       console.log(currentWeatherPrediction)
-  //       let newArray = this.state.arrayOfWeather
-  //       newArray.unshift(currentWeatherPrediction)
-  //       this.setState({
-  //         value: "",
-  //         arrayOfWeather: newArray
-  //       })
-  //       console.log(this.state.arrayOfWeather)
-  //     })
-
-  // }
-
-  // render() {
-  //   const { value, arrayOfWeather } = this.state;
-  //   const weather = arrayOfWeather.length !== 0 ? arrayOfWeather[0] : ""
-  //   function isWeather(){
-  //     if (arrayOfWeather.length !== 0) {
-  //       return true
-  //     } 
-  //     return false
-  //   }
-  //   return (
-  //     <div>
-  //       <form onSubmit={this.onSubmit}>
-  //         <input onChange={this.onChange} value={value} />
-  //       </form>
-  //       <h1>{isWeather ? weather.location : ""}</h1>
-  //       <h1>{isWeather ? weather.clouds : ""}</h1>
-  //       <h1>{isWeather ? weather.temperature : ""}</h1>
-  //     </div>
-  //   );
-  // }
 }
 
-export default Card;
+export default LocationCard;
