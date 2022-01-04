@@ -56,7 +56,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export default function SearchAppBar(props) {
     const { a11yProps, tabValue, handleChange, arrayOfWeather } = props
-    const classes = props.style()
 
     return (
         <AppBar position="static" className="secondaryBackground">
