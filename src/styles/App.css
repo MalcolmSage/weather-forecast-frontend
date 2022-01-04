@@ -23,16 +23,12 @@
 }
 
 .secondaryBackground {
-  background-color: #a7d3fd;
+  background-color: #282c34 !important
   
 }
 
 input {
   color: white !important
-}
-
-.App-link {
-  color: #61dafb;
 }
 
 .Footer {

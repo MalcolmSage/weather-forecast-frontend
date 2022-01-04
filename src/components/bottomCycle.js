@@ -11,7 +11,7 @@ export default function Footer(props) {
     const classes = props.style()
 
     return (
-        <AppBar position="fixed" className={classes.primaryBG} sx={{ top: 'auto', bottom: 0, display: { xs: 'block', sm: 'none' } }}>
+        <AppBar position="fixed" className="secondaryBackground" sx={{ top: 'auto', bottom: 0, display: { xs: 'block', sm: 'none' } }}>
             {arrayOfWeather.length < 2 ? "" :
                 <ButtonGroup fullWidth size="large">
                     <Button onClick={backTab} className={classes.secondaryText}>

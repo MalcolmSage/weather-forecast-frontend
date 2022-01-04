@@ -59,7 +59,7 @@ export default function SearchAppBar(props) {
     const classes = props.style()
 
     return (
-        <AppBar position="static" className={classes.primaryBG}>
+        <AppBar position="static" className="secondaryBackground">
             <Toolbar>
                 <Search>
                     <SearchIconWrapper>

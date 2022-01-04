@@ -131,7 +131,6 @@ class App extends Component {
     }
     const backTab = () => {
       if (this.state.tabValue !== 0) {
-        console.log(this.state.tabValue, this.state.arrayOfWeather.length)
         this.setState({ tabValue: (this.state.tabValue - 1) });
       }
     }
