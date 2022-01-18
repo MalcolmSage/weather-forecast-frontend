@@ -140,7 +140,7 @@ class App extends Component {
           <SearchAppBar onChange={this.onChange} style={useStyles} onSubmit={this.onSubmit} value={value} a11yProps={a11yProps} tabValue={this.state.tabValue} handleChange={handleChange} arrayOfWeather={this.state.arrayOfWeather} />
           <Grid container justifyContent="center" alignItems="center">
             <Grid item>
-              {arrayOfWeather.length === 0 ? <h1>Want to see the weather in your city or another? Give it a search!</h1> : ""}
+              {arrayOfWeather.length === 0 ? <h1>Want to see the weather in your city or another? Give it a search!cd </h1> : ""}
               {arrayOfWeather.map((item) => (
                 <TabPanel value={this.state.tabValue} index={item.index} key={item.index}>
                   <LocationCard item={item} />
